@@ -1,26 +1,16 @@
-SELECT *
-FROM PortfolioProject..Covid_Deaths
-WHERE continent IS NOT NULL
-ORDER BY 3,4
-
-
---SELECT *
---FROM PortfolioProject..Covid_Vaccination
---ORDER BY 3,4
-
--- Select Data that we are going to be using
+-- Select Data that is going to be used
 
 SELECT location, date, total_cases, new_cases, total_deaths, population
 FROM PortfolioProject..Covid_Deaths
 WHERE continent IS NOT NULL
-ORDER BY 1,2
+ORDER BY location, date
 
 -- Looking at Total Cases vs Total Deaths
 -- Shows likelihood of dying if you contract covid in your country
 SELECT location, date, total_cases, total_deaths, (total_deaths/total_cases)*100 AS Death_Percentage
 FROM Covid_Deaths
 WHERE location LIKE '%states%' AND continent IS NOT NULL
-ORDER BY 1,2
+ORDER BY location, date
 
 -- Looking at Total Cases vs Population
 -- Shows what percentage of population got Covid
@@ -28,7 +18,7 @@ ORDER BY 1,2
 SELECT location, date, population, total_cases, (total_cases/population)*100 AS Percentage_of_Population_Infected
 FROM Covid_Deaths
 WHERE location LIKE '%states%' AND continent IS NOT NULL
-ORDER BY 1,2
+ORDER BY location, date
 
 -- Looking at Countries with Highest Infection Rate comapred to Population
 
@@ -79,7 +69,7 @@ JOIN Covid_Vaccination AS v
 	ON d.location = v.location
 	AND d.date = v.date
 WHERE d.continent IS NOT NULL 
-ORDER BY 2,3
+ORDER BY d.location, d.date
 
 
 SELECT 
@@ -94,7 +84,7 @@ JOIN Covid_Vaccination AS v
 	ON d.location = v.location
 	AND d.date = v.date
 WHERE d.continent IS NOT NULL 
-ORDER BY 2,3
+ORDER BY d.location, d.date
 
 
 -- Use CTE

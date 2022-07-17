@@ -107,28 +107,28 @@ ORDER BY 2
 SELECT
 	SoldAsVacant,
 	CASE WHEN SoldAsVacant = 'Y' THEN 'Yes'
-		 WHEN SoldAsVacant = 'N' THEN 'No'
-		 ELSE SoldAsVacant
+             WHEN SoldAsVacant = 'N' THEN 'No'
+	     ELSE SoldAsVacant
 	END AS SoldAsVacantConverted
 FROM PortfolioProject.dbo.NashvilleHousing
 
 UPDATE PortfolioProject.dbo.NashvilleHousing
 SET SoldAsVacant = CASE WHEN SoldAsVacant = 'Y' THEN 'Yes'
-						WHEN SoldAsVacant = 'N' THEN 'No'
-						ELSE SoldAsVacant
-					END
+			WHEN SoldAsVacant = 'N' THEN 'No'
+			ELSE SoldAsVacant
+		   END
 
 
 -- Remove Duplicates
 
 SELECT *,
 	   ROW_NUMBER() OVER(PARTITION BY ParcelID,
-									  PropertyAddress,
-									  SalePrice,
-									  SaleDate,
-									  LegalReference
-						 ORDER BY UniqueID
-						 ) AS row_num
+					  PropertyAddress,
+					  SalePrice,
+					  SaleDate,
+					  LegalReference
+			     ORDER BY UniqueID
+			     ) AS row_num
 FROM PortfolioProject.dbo.NashvilleHousing
 ORDER BY ParcelID
 
@@ -136,12 +136,12 @@ ORDER BY ParcelID
 WITH RowNumCTE AS(
 	SELECT *,
 	   ROW_NUMBER() OVER(PARTITION BY ParcelID,
-									  PropertyAddress,
-									  SalePrice,
-									  SaleDate,
-									  LegalReference
-						 ORDER BY UniqueID
-						 ) AS row_num
+					  PropertyAddress,
+					  SalePrice,
+					  SaleDate,
+					  LegalReference
+			     ORDER BY UniqueID
+			     ) AS row_num
 	FROM PortfolioProject.dbo.NashvilleHousing
 )
 
